@@ -24,6 +24,8 @@
 
 cd /{Come to fe place And type}
   - npm run dev
+
+
 cd /{backend1}
   - compile typescript file and get dist file output as Js
   - and run node ./dist/index.js
