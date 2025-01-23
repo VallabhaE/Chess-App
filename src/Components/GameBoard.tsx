@@ -38,9 +38,9 @@ const Chessboard = ({
     if (!gameBegins) {
       return;
     }
-    if (option==="ONLINE" && col !== undefined && col !== color[0] ) {
-      return;
-    }
+    // if (option==="ONLINE" && col !== undefined && col !== color[0] ) {
+    //   return;
+    // }
     if (move.from.length === 0) {
       setMove((prev: any) => ({
         ...prev,
