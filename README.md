@@ -1,4 +1,3 @@
-# [x] UPDATED
 # Chess Application
 
 ## Options Mentioned in Home Page
