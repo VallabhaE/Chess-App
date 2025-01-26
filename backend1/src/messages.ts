@@ -1,3 +1,6 @@
 export const INIT_GAME = "INIT_GAME"
 export const MOVE = "MOVE"
 export const GAME_OVER = "GAME_OVER"
+export const SPECTATE = "SPECTATE"
+export const REMOVESPECTATPRS = "RMSPECTATE"
+export const END_GAME = "END_GAME"

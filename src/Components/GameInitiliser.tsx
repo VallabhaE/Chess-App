@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function GameInitiliser({setMove,setGameBegins}) {
+  
   return (
     <div className='flex flex-col justify-center ml-60 mt-60 '>
         <div

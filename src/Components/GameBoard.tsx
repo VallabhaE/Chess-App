@@ -25,6 +25,8 @@ const Chessboard = ({
   sendFunctions,
   gameBegins,
   color,
+  GameStarted,
+  gameData
 }: any) => {
   const [board, setBoard] = useState(chess.board());
   const [state, setState] = useState("");
@@ -32,10 +34,20 @@ const Chessboard = ({
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState("");
   console.log(option,"OPTION us")
-
+  useEffect(()=>{
+    console.log( gameData,"FF")
+    if(gameData===undefined){
+      return
+    }
+    for(let move of gameData){
+      console.log({from:move.from,to:move.to})
+      chess.move({from:move.from,to:move.to})
+      setBoard(chess.board());
+    }
+  },[gameData])
   // Handle a click event to update the move
   function handleClick(position: string, col: string): void {
-    if (!gameBegins) {
+    if (!GameStarted) {
       return;
     }
     // if (option==="ONLINE" && col !== undefined && col !== color[0] ) {
@@ -184,7 +196,11 @@ const Chessboard = ({
           )}
         </div>
       )}
+
+<button onClick={()=>setGameStarted((prev)=>!prev)}>{GameStarted?"Start":"Stop"} Game</button>
     </div>
+
+    
   );
 };
 
