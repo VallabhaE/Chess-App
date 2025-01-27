@@ -48,8 +48,6 @@ const Game = ({
         if (event.data) {
           console.log("Game MESSAFE CAME", event.data);
           const message = JSON.parse(event.data);
-          console.log(message, "Direct Data here bro");
-          console.log(message.payload.roomId, "Direct PayLoad");
           
 
           //JUST SET BOARD FULLY
