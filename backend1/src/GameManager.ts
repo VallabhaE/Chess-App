@@ -131,11 +131,22 @@ export class GameManager {
       }
 
       if (message.type === SPECTATE) {
+        let gameFound = false
         for (let Game of this.games) {
-          if (message.gameId.gameId === Game.gameId) {
+          console.log("SEARCHING DATA")
+          if (message.gameId.gameId === Game.roomId) {
+            console.log("OUTPUT FOUND")
+            gameFound = true
             Game.addSpectators(socket);
             break;
           }
+        }
+
+        if(gameFound===false){
+          socket.send(JSON.stringify({
+            type:"SPECTATE",
+            allMoves:[]
+          }))
         }
       }
 

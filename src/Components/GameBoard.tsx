@@ -13,6 +13,7 @@ import WhitePawn from "../assets/Icons/wp.png";
 import WhiteCamel from "../assets/Icons/wb.png";
 import WhiteKing from "../assets/Icons/wk.png";
 import WhiteHorse from "../assets/Icons/wn.png";
+import { useSelector } from "react-redux";
 
 let status: boolean;
 
@@ -28,12 +29,26 @@ const Chessboard = ({
   GameStarted,
   gameData
 }: any) => {
+
+  
   const [board, setBoard] = useState(chess.board());
   const [state, setState] = useState("");
+  const Moves = useSelector((state: RootState) => state.user.gameMovesUpdated);
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState("");
   console.log(option,"OPTION us")
+  if(gameState!==null){
+    setBoard(gameState)
+  }
+
+
+  useEffect(()=>{
+    if(Moves===null){
+      return
+    }
+    setBoard(Moves)
+  },[Moves])
   useEffect(()=>{
     console.log( gameData,"FF")
     if(gameData===undefined){
