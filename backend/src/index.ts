@@ -60,7 +60,6 @@ app.post("/signup", function (req, res) {
 });
 
 app.get("/getOnlineMatchs", CheckUserForRoutes, function (req, res) {
-  console.log(res.beforeTime, "Bahubali");
   if (!res.beforeTime.valid) {
     res.status(200).send(res.beforeTime);
     return;

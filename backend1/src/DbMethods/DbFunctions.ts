@@ -1,5 +1,5 @@
 import mysql from "mysql2";
-
+let CONNECTED =false
 // Create a connection to the MySQL server
 const connection = mysql.createConnection({
   host: "localhost", // host for connection
@@ -14,6 +14,7 @@ connection.connect((err: any) => {
   if (err) {
     console.log("Error connecting to the database:", err);
   } else {
+    CONNECTED = true
     console.log("Connected to the database.");
   }
 });

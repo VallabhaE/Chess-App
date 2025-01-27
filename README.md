@@ -13,10 +13,12 @@
 
 
 # Tasks
-1. Enable spectater Mode by utiliusing room id created in backend
-2. Store all data in data Base
-3. enable Login,SignUp option
-4. More will be listed
+1. add radis for quick communication and reducing db costs
+1. Add Spectator Mode for watching games live.
+1. Design the system to support up to 1000 players for large-scale play.
+1. Deploy the game for public access!
+1. Moving backend from TS to Go-Lang
+
 
 
 

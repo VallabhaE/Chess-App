@@ -4,7 +4,8 @@ import Cookies from 'js-cookie';
 // Defining the type for the state
 interface UserState {
   id: any; // This can be updated to the appropriate type (e.g., string or object)
-  gameId:any
+  gameId:any,
+  SpectatergameId:any
 }
 
 // Initial state, defaulting the `id` to `null` (i.e., user is not logged in initially)
@@ -24,7 +25,8 @@ const initialState: UserState = {
     }
     return null; // Return null if cookie is not found
   })(),
-  gameId:null
+  gameId:null,
+  SpectatergameId:null
   
 };
 
@@ -41,9 +43,13 @@ const userSlice = createSlice({
       console.log("CAME HERE",action)
       state.gameId = action.payload;
     },
+    setSpectateGameId: (state, action: PayloadAction<any | null>) => {
+      console.log("CAME HERE spectatorGameId",action)
+      state.SpectatergameId = action.payload;
+    },
   },
 });
 
 // Export the action and the reducer
-export const { setUserId,setGameId } = userSlice.actions;
+export const { setUserId,setGameId,setSpectateGameId } = userSlice.actions;
 export default userSlice.reducer;

@@ -2,17 +2,18 @@ import background from "../assets/chessBackground.jpg";
 import { useNavigate } from 'react-router';
 import Login from "../Auth/Login";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
 import { BACKEDN_URL_HTTP } from "./constents";
 import { useDispatch } from "react-redux";
-import { setGameId } from "../redux/userSlics";
+import { setGameId, setSpectateGameId } from "../redux/userSlics";
 
 const Home = ({option, setOption,setGameData,gameData,reJoin,setReJoin}) => {
   const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id);
   const [clicked,setclickedState] = useState(false);
+  const refRoomId = useRef<HTMLInputElement>(null)
 const dispatch = useDispatch()
   const handleData = async ()=>{
     try{
@@ -94,10 +95,24 @@ const dispatch = useDispatch()
       </div>
 
       {/* Login Component */}
-      <div className="self-center z-30">
+      <div className="self-center z-30 h-fit">
         {!userId ? <Login />:(
           <div className="text-5xl font-bold text-red-500">
             Welcome to Our Chess Game <br /> <h1 className="flex justify-center text-9xl">{userId.username}</h1>
+
+            <div className="flex flex-row border justify-center">
+              <h1 className="">Want To Spectate: 
+              <div>
+              <input ref={refRoomId} type="text" />
+              
+              </div>
+              <button onClick={()=>{
+                dispatch(setSpectateGameId(refRoomId.current?.value))
+                navigate("/game")
+              }}>JOIN ROOM</button>
+
+              </h1>
+            </div>
           </div>
         )}
 

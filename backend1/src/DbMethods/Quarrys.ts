@@ -5,3 +5,8 @@ export const insertUserGames = (username:string,email:string,gameId:number,color
 export const insertMoves = (from:string,to:string,gameId:number)=>{
     return `INSERT INTO GamesList (\`from\`, \`to\`, gameId) VALUES ('${from}', '${to}', ${gameId})`
 }
+
+
+export const getAllGames = () =>{
+    return `select * from UserGames;`
+}

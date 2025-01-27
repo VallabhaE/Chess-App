@@ -2,15 +2,23 @@ import { WebSocket } from "ws";
 import { END_GAME, INIT_GAME, MOVE, REMOVESPECTATPRS, SPECTATE } from "./messages";
 import { Game } from "./Game";
 import { executeQuery } from "./DbMethods/DbFunctions";
-import { insertUserGames } from "./DbMethods/Quarrys";
+import { getAllGames, insertUserGames } from "./DbMethods/Quarrys";
 export class GameManager {
   private games: Game[];
   private pendingUser: any;
   private users: WebSocket[];
+  private gameIdCreator:number
   constructor() {
     this.games = [];
     this.pendingUser = null;
     this.users = [];
+    executeQuery(getAllGames()).then((res)=>{
+      
+      this.gameIdCreator = res.length;
+      console.log("GAMEID",res.length,this.gameIdCreator)
+    }).catch(er=>{
+      this.gameIdCreator = 0
+    })
   }
 
   addUser(socket: WebSocket) {
@@ -54,8 +62,9 @@ export class GameManager {
             const game = new Game(
               this.pendingUser.socket,
               socket,
-              this.games.length + 1
+              this.gameIdCreator + 1
             );
+            this.gameIdCreator++;
             executeQuery(
               insertUserGames(
                 this.pendingUser.userName,
@@ -123,7 +132,7 @@ export class GameManager {
 
       if (message.type === SPECTATE) {
         for (let Game of this.games) {
-          if (message.gameId === Game.gameId) {
+          if (message.gameId.gameId === Game.gameId) {
             Game.addSpectators(socket);
             break;
           }

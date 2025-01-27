@@ -1,0 +1,26 @@
+
+create table Users(
+		id int auto_increment PRIMARY KEY,
+        username VARCHAR(255) UNIQUE,
+        email VARCHAR(255) UNIQUE,
+        password VARCHAR(255) NOT NULL
+);
+
+create table GamesList(
+	id int auto_increment PRIMARY KEY,
+    `from` VARCHAR(255),
+    `to` VARCHAR(255),
+    moveTime DATETIME  default  NOW(),
+    gameId int REFERENCES UserGames(GameId)
+);
+
+
+create table UserGames(
+	id int auto_increment PRIMARY KEY,
+    username VARCHAR(255),
+	email VARCHAR(255) ,
+    GameId int,
+    color VARCHAR(10),
+    gameType VARCHAR(10),
+    gameOver BOOL default false
+);

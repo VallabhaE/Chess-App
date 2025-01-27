@@ -10,6 +10,7 @@ export class Game {
   private startTime: Date;
   private totalMoves:number = 0
   public gameId:number;
+  public roomId:string
   // public player1Name:string
   // public player2Name:string
   // public player1Email:string
@@ -22,6 +23,7 @@ export class Game {
     this.startTime = new Date();
     this.gameId = GameId;
     this.Spectators = []
+    this.roomId = `${this.gameId}XYZCHESSBYVALLABHA}` 
     // this.player1Email = info.player1Email
     // this.player1Name = info.player1Name
     // this.player2Email = info.player2Email
@@ -31,14 +33,17 @@ export class Game {
         type:INIT_GAME,
         payload:{
             color:"white",
-            gameId:this.gameId
+            gameId:this.gameId,
+            roomId:this.roomId
         }
     }))
 
     this.player2.send(JSON.stringify({
         type:INIT_GAME,
         payload:{
-            color:"black"
+            color:"black",
+            gameId:this.gameId,
+            roomId:this.roomId
         }
     }))
   }
@@ -122,6 +127,8 @@ export class Game {
     this.totalMoves++;
     await executeQuery(insertMoves(move.from,move.to,this.gameId))
     console.log("Insertion happend",move.from,move.to,this.gameId)
+
+    
     for(let spectator of this.Spectators){
       spectator.send(JSON.stringify({
         ...move,
