@@ -20,8 +20,6 @@ const Game = ({ option, setOption, setGameData, gameData,reJoin,setReJoin }) => 
 
   const userId = useSelector((state: RootState) => state.user.id);
   const gameId = useSelector((state: RootState) => state.user.gameId);
-  const spectatorGameId = useSelector((state: RootState) => state.user.SpectatergameId);
-
   const [initilised,setInitilised] = useState(false)
   const [GameStarted,setGameStarted] = useState(false)
 
@@ -38,7 +36,7 @@ useEffect(()=>{
     }else if(!GameStarted){
       console.log("BUG WTF")
       return
-    } else if (option === "ONLINE" || spectatorGameId!==null) {
+    } else if (option === "ONLINE") {
       if(reJoin.gameId==='' || socket===null){
         console.log("WHY SOCKEY NULL")
         return
