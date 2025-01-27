@@ -11,6 +11,10 @@ export class Game {
   private totalMoves:number = 0
   public gameId:number;
   public roomId:string
+  public spectatorsMoves:{
+    from: string;
+    to: string;
+  }[]
   // public player1Name:string
   // public player2Name:string
   // public player1Email:string
@@ -24,6 +28,7 @@ export class Game {
     this.gameId = GameId;
     this.Spectators = []
     this.roomId = `${this.gameId}XYZCHESSBYVALLABHA}` 
+    this.spectatorsMoves = []
     // this.player1Email = info.player1Email
     // this.player1Name = info.player1Name
     // this.player2Email = info.player2Email
@@ -128,11 +133,11 @@ export class Game {
     await executeQuery(insertMoves(move.from,move.to,this.gameId))
     console.log("Insertion happend",move.from,move.to,this.gameId)
 
-    
+    this.spectatorsMoves.push(move)
     for(let spectator of this.Spectators){
       spectator.send(JSON.stringify({
-        ...move,
-        type:"SPECTATE"
+        type:"SPECTATE",
+        allMoves:this.spectatorsMoves
       }))
     }
 
