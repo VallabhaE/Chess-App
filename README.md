@@ -10,7 +10,7 @@
 1. Play 1V1
      - User can play both side black and white also which lets user to play game with his friends
   
-1. Added Spectator Mode for watching games live
+1. Added Spectator Mode for watching games live,Join with room code to game only if game is live.
 
 # Tasks
 1. add radis for quick communication and reducing db costs
@@ -22,6 +22,8 @@
 
 
 # HOW TO RUN
+
+
 
 cd /{Come to fe place And type ("./")}
   - npm run dev
