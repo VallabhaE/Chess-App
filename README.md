@@ -17,7 +17,7 @@
 1. Design the system to support up to 1000 players for large-scale play.
 1. Deploy the game for public access!
 1. Moving backend from TS to Go-Lang
-
+1. Fixed Backend Bugs
 
 
 
