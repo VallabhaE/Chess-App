@@ -9,42 +9,46 @@ import { BACKEDN_URL_HTTP } from "./constents";
 import { useDispatch } from "react-redux";
 import { setGameId, setSpectateGameId } from "../redux/userSlics";
 
-const Home = ({option, setOption,setGameData,gameData,reJoin,setReJoin}) => {
+const Home = ({ option, setOption, setGameData, gameData, reJoin, setReJoin }) => {
   const navigate = useNavigate();
   const userId = useSelector((state: RootState) => state.user.id);
-  const [clicked,setclickedState] = useState(false);
+  const [clicked, setclickedState] = useState(false);
   const refRoomId = useRef<HTMLInputElement>(null)
-const dispatch = useDispatch()
-  const handleData = async ()=>{
-    try{
-      const data = await axios.get(BACKEDN_URL_HTTP+"getOnlineMatchs",{
+  const dispatch = useDispatch()
+  const handleData = async () => {
+    try {
+      const data = await axios.get(BACKEDN_URL_HTTP + "getOnlineMatchs", {
         withCredentials: true, // This ensures cookies are sent with the request
       })
-       console.log({
-        gameId:data.data.gameId,
-        color:data.data.color
-      },"CHECK ME PLEASE SIR")
+      console.log({
+        gameId: data.data.gameId,
+        color: data.data.color
+      }, "CHECK ME PLEASE SIR")
       dispatch(setGameId({
-        gameId:data.data.gameId,
-        color:data.data.color
+        gameId: data.data.gameId,
+        color: data.data.color
       }))
       setReJoin({
-        gameId:data.data.gameId,
-        color:data.data.color
+        gameId: data.data.gameId,
+        color: data.data.color
       })
       setGameData(data.data.gameData)
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     console.log("UPdated")
-  ,[userId]})
+      , [userId]
+  })
   function handleClick() {
-    if(userId===null) {
+    if (userId === null) {
+
       setclickedState(true)
       return;
+
     }
+    // console.log(userId,option,"I AM HERE")
     handleData()
     navigate("/game");
     console.log("Function Clicked");
@@ -52,7 +56,7 @@ const dispatch = useDispatch()
 
   return (
     <div style={{ backgroundImage: `url(${background})` }} className="w-screen bg-cover bg-center flex relative align-middle h-screen">
-      
+
       {/* Overlay to darken the background */}
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
@@ -69,7 +73,8 @@ const dispatch = useDispatch()
         <div className="flex justify-center flex-col gap-11">
           <div onClick={() => {
             setOption("OFFLINE");
-            handleClick();
+            // handleClick();
+            navigate('/game')
           }} className="border-4 border-red-600 h-20 w-96 rounded-xl bg-red-900 hover:bg-red-700 hover:scale-105 transition duration-300 ease-in-out flex items-center justify-center font-semibold text-3xl text-white cursor-pointer">
             Play Offline
           </div>
@@ -83,33 +88,34 @@ const dispatch = useDispatch()
 
           <div onClick={() => {
             setOption("1V1");
-            handleClick();
+            // handleClick();
+            navigate('/game')
           }} className="border-4 border-red-600 h-20 w-96 rounded-xl bg-red-900 hover:bg-red-700 hover:scale-105 transition duration-300 ease-in-out flex items-center justify-center font-semibold text-3xl text-white cursor-pointer">
             Play 1V1
           </div>
 
-          {clicked && <div  className=" border-red-600 rounded-xl animate-bounce w-fit  bg-red-900 hover:bg-red-700 hover:scale-105 transition duration-300 ease-in-out flex items-center justify-center font-semibold text-3xl text-white cursor-pointer">
-            { "PLEASE LOGIN"}
+          {clicked && <div className=" border-red-600 rounded-xl animate-bounce w-fit  bg-red-900 hover:bg-red-700 hover:scale-105 transition duration-300 ease-in-out flex items-center justify-center font-semibold text-3xl text-white cursor-pointer">
+            {"PLEASE LOGIN"}
           </div>}
         </div>
       </div>
 
       {/* Login Component */}
       <div className="self-center z-30 h-fit">
-        {!userId ? <Login />:(
+        {!userId ? <Login /> : (
           <div className="text-5xl font-bold text-red-500">
             Welcome to Our Chess Game <br /> <h1 className="flex justify-center text-9xl">{userId.username}</h1>
 
             <div className="flex flex-row border justify-center">
-              <h1 className="">Want To Spectate: 
-              <div>
-              <input ref={refRoomId} type="text" />
-              
-              </div>
-              <button onClick={()=>{
-                dispatch(setSpectateGameId(refRoomId.current?.value))
-                navigate("/game")
-              }}>JOIN ROOM</button>
+              <h1 className="">Want To Spectate:
+                <div>
+                  <input ref={refRoomId} type="text" />
+
+                </div>
+                <button onClick={() => {
+                  dispatch(setSpectateGameId(refRoomId.current?.value))
+                  navigate("/game")
+                }}>JOIN ROOM</button>
 
               </h1>
             </div>

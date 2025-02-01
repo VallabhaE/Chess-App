@@ -37,6 +37,7 @@ const Chessboard = ({
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState("");
+  const [AvailableMoves,setAvailableMoves] = useState([])
   console.log(option,"OPTION us")
   if(gameState!==null){
     setBoard(gameState)
@@ -50,12 +51,10 @@ const Chessboard = ({
     setBoard(Moves)
   },[Moves])
   useEffect(()=>{
-    console.log( gameData,"FF")
     if(gameData===undefined){
       return
     }
     for(let move of gameData){
-      console.log({from:move.from,to:move.to})
       chess.move({from:move.from,to:move.to})
       setBoard(chess.board());
     }
@@ -73,6 +72,7 @@ const Chessboard = ({
         ...prev,
         from: position,
       }));
+      console.log("AVAILABLE MOVES:->")
     } else {
       setMove((prev: any) => ({
         ...prev,
