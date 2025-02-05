@@ -215,6 +215,7 @@ const Game = ({
         {/* Game Board Section */}
         <div className="flex-1">
           <GameBoard
+          gameIdforSpectator={gameIdforSpectator}
             GameStarted={GameStarted}
             gameBegins={gameBegins}
             option={option}

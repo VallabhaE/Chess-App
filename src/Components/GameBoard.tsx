@@ -18,6 +18,7 @@ import { useSelector } from "react-redux";
 let status: boolean;
 
 const Chessboard = ({
+  gameIdforSpectator,
   option,
   chess,
   gameState,
@@ -34,10 +35,17 @@ const Chessboard = ({
   const [board, setBoard] = useState(chess.board());
   const [state, setState] = useState("");
   const Moves = useSelector((state: RootState) => state.user.gameMovesUpdated);
-
+  const [spectating,setSpectating] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState("");
   const [AvailableMoves,setAvailableMoves] = useState([])
+  useEffect(()=>{
+    if(gameIdforSpectator!==null){
+      setSpectating(true)
+    }else{
+      setSpectating(false)
+    }
+  },[gameIdforSpectator])
   console.log(option,"OPTION us")
   if(gameState!==null){
     setBoard(gameState)
@@ -212,7 +220,7 @@ const Chessboard = ({
         </div>
       )}
 
-<button onClick={()=>setGameStarted((prev)=>!prev)}>{GameStarted?"Start":"Stop"} Game</button>
+<button disabled={spectating} onClick={()=>setGameStarted((prev)=>!prev)}>{GameStarted && !spectating?"Start":!spectating?"Stop":"spectate Mode"} Game</button>
     </div>
 
     
